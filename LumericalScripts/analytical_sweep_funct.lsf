@@ -1,0 +1,46 @@
+function analyticalsweep(xLength, yLength){
+    xL_num = length(xLength);
+    yL_num = length(yLength);
+    
+    #Get the wavelengths and the number
+    load("Lx_1Ly_1.fsp");
+    freqs = getresult("reflected","f");
+    wavelengths = 2.99792458e+8/freqs;    
+    numlambda = length(wavelengths);    
+    
+    R = matrix(xL_num,yL_num,numlambda);
+    phase = R;
+    
+    for (i=1:xL_num) {
+        for (j=1:yL_num) {
+            load("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
+            Temp = getresult("reflected","T");
+            tempphase = angle(getdata("phase","Ex"));
+            for (k=1:numlambda){
+                R(i,j,k) = Temp.T(k);
+                phase(i,j,k) = tempphase(k);    
+            }
+        }
+    }
+    
+    #Write the variables we have into a struct.
+    data = struct;
+    data.xLength = xLength;
+    data.yLength = yLength;
+    data.wavelengths = wavelengths;
+    data.R = R;
+    data.phase = phase;
+    matlabsave("results",data);
+    return data;
+}
+
+function visualizedata(data){
+    xL_num = length(data.xLength);
+    yL_num = length(data.yLength);
+    numlambda = length(data.wavelengths);    
+    #Visualize data
+    for(i=1:numlambda){
+        image(data.xLength, data.yLength, data.R(1:xL_num, 1:yL_num, i), "x length (nm)", "y length (nm)", "R "+num2str(data.wavelengths(i)));
+        image(data.xLength, data.yLength, data.phase(1:xL_num, 1:yL_num, i), "x length (nm)", "y length (nm)", "phase "+num2str(data.wavelengths(i)));
+    }
+}

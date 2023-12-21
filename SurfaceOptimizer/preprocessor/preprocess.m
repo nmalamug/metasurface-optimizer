@@ -8,6 +8,7 @@
 function preprocess(data)
     assert(isDataFormatted == 1, "Data is incorrectly formatted");
     %Fix the phase of the data
+    data.phase = unwrapPhase(data.phase);
     %Fix the 
 end
 

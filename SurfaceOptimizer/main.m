@@ -5,5 +5,5 @@ dirCurr = pwd;
 dirToAdd = strcat(dirCurr, '/preprocessor');
 addpath(dirToAdd,'-end');
 
-%Define the number of parameters by the # dimensions in the R/Phase array. 
-preprocess(data);
+%Start preprocessing the data.
+preprocessedData = preprocess(data);

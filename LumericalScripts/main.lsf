@@ -9,6 +9,6 @@ yLength = linspace(150,550,5);
 #Do constructive and analytical sweeps 
 #To do analytical only, comment out the constructive sweep
 
-constructivesweep(xLength, yLength);
+#constructivesweep(xLength, yLength);
 data = analyticalsweep(xLength, yLength);
-visualizedata(data);
+#visualizedata(data);

@@ -24,9 +24,11 @@ function analyticalsweep(xLength, yLength){
     }
     
     #Write the variables we have into a struct.
+    params = {xLength, yLength};
     data = struct;
-    data.xLength = xLength;
-    data.yLength = yLength;
+    data.params = params;
+    #data.xLength = xLength;
+    #data.yLength = yLength;
     data.wavelengths = wavelengths;
     data.R = R;
     data.phase = phase;

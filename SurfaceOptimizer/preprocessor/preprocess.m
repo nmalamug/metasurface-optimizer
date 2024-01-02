@@ -4,7 +4,7 @@
 %Start pulling raw data into an array of structs.
 %%%%%%%%%%%%%%%%%
 function dataout = preprocess(data)
-    assert(isDataFormatted == 1, "Data is incorrectly formatted");
+    assert(isDataFormatted(data) == 1, "Data is incorrectly formatted");
     %Start the record of changes to data
     newdata(1) = data;
     
@@ -13,7 +13,7 @@ function dataout = preprocess(data)
     newdata.phase = unwrapPhase(data.phase, numParams(1));
 
     %Start pulling data into the array of structures.
-    elements = tabulate(newdata);
+    elements = surfaceTabulate(newdata);
 
     dataout = {newdata, elements};
 end

@@ -3,8 +3,8 @@ constructive_sweep_funct;
 analytical_sweep_funct;
 
 #Initialize parameters
-xLength = linspace(150,550,17);
-yLength = linspace(150,550,5);
+xLength = linspace(150,550,41);
+yLength = linspace(150,550,21);
 
 #Do constructive and analytical sweeps 
 #To do analytical only, comment out the constructive sweep

@@ -4,6 +4,8 @@
 dirCurr = pwd;
 dirToAdd = strcat(dirCurr, '/preprocessor');
 addpath(dirToAdd,'-end');
+dirToAdd = strcat(dirCurr, '/optimizer');
+addpath(dirToAdd,'-end');
 
 %Start preprocessing the data.
-preprocessedData = preprocess(data);
+unitCellDesigns = preprocess(data);

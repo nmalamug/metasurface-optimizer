@@ -6,6 +6,7 @@
 %%%%%%%%%%%%%%%%%
 function newphase = unwrapPhase(phase, numParams)
     fprintf("Unwrapping Phase\n")
+
     % Unwrap phase n dimensionally
     for ii=1:numParams
         phase = unwrap(phase,[],ii);

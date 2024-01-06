@@ -1,6 +1,8 @@
 %%%%%%%%%%%%%%%%%
 % Check and verify that data is correctly formatted
 % for the rest of the program. 
+% Compare dimensionality of parameters  with R and phase
+% Compare dimensionality of lambda with last dimension.
 %%%%%%%%%%%%%%%%%
 function res = isDataFormatted(data)
     res = 1;

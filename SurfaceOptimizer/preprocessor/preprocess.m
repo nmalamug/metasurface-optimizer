@@ -14,7 +14,7 @@ function dataout = preprocess(data)
 
     %Start pulling data into the array of structures.
     elements = surfaceTabulate(newdata);
-
+    elements = removeLowR(elements, .6);
     dataout = {newdata, elements};
 end
 

@@ -8,6 +8,8 @@
 % params.P - Value for size of unit cell
 %%%%%%%%%%%%%%%%%
 function bestDesign = optimizeMetasurface(unitCellTable,params)
+    fprintf("Working on cell design, n=%d \n", params.N);
+
     %Start by defining the linear regressions.
     numlambda = size(params.lambdas);
     
@@ -17,11 +19,6 @@ function bestDesign = optimizeMetasurface(unitCellTable,params)
         slopes{i}(1) = (2*pi*params.P/params.lambdas(i))*(params.nspp - sin(deg2rad(params.theta)));
         slopes{i}(2) = 0;
     end
-    %{
-    for i = 1:params.N
-        bestDesign(i).totalRMS = Inf;
-    end
-    %}
     bestDesign.totalRMS = Inf;
     for i = 1:numel(unitCellTable)
         for j = 1:numlambda(1)
@@ -41,7 +38,7 @@ function bestDesign = optimizeMetasurface(unitCellTable,params)
         end
         currDesign.RMS = getDesignRMS(currDesign.cells, slopes);
         currDesign.totalRMS = prod(currDesign.RMS);
-        if(currDesign.totalRMS<bestDesign(i).totalRMS)
+        if(currDesign.totalRMS < bestDesign.totalRMS)
             bestDesign = currDesign;
             bestDesign.slopes = slopes;
         end

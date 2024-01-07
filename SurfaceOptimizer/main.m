@@ -16,10 +16,16 @@ unitCellTable = unitCellDesigns{2};
 
 %Put together design parameters and build a surface. 
 designParams.lambdas = preprocessedData.wavelengths;
-designParams.N =    20;
+designParams.N =    30;
 designParams.minR = .6;
 designParams.nspp = 1.05;
 designParams.theta = 0;
 designParams.P = 600e-9;
-surface0deg = optimizeMetasurface(unitCellTable, designParams);
-save surface0deg20.mat surface0deg
+trueRMS = optimizeMetasurface(unitCellTable, designParams);
+%{
+for i=27:30
+    designParams.N = i;
+    surface0deg = [surface0deg,optimizeMetasurface(unitCellTable, designParams)];
+end
+%}
+%save sumNextBest.mat sumNextBest

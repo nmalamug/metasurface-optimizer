@@ -1,6 +1,8 @@
+%%%%%%%%%%%%%%%%%
+% First, computes error of all unit cells at each wavelength
+% Then, compute RMS for each wavelength
+%%%%%%%%%%%%%%%%%
 function designRMS = getDesignRMS(cells,slopes)
-%GETDESIGNRMS Summary of this function goes here
-%   Detailed explanation goes here
     slopeSize = size(slopes);
     errorMatrix = zeros(numel(cells),slopeSize(1));
     for i = 1:numel(cells)

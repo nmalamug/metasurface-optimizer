@@ -11,4 +11,4 @@ yLength = linspace(150,550,21);
 
 #constructivesweep(xLength, yLength);
 data = analyticalsweep(xLength, yLength);
-#visualizedata(data);
+visualizedata(data);

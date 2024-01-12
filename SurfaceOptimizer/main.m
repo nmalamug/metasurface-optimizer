@@ -21,7 +21,7 @@ designParams.minR = .6;
 designParams.nspp = 1.05;
 designParams.theta = 0;
 designParams.P = 600e-9;
-trueRMS = optimizeMetasurface(unitCellTable, designParams);
+normalizedPhase = optimizeMetasurface(unitCellTable, designParams);
 %{
 for i=27:30
     designParams.N = i;

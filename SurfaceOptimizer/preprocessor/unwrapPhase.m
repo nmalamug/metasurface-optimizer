@@ -6,17 +6,21 @@
 %%%%%%%%%%%%%%%%%
 function newphase = unwrapPhase(phase, numParams)
     fprintf("Unwrapping Phase\n")
-
+    dims = size(phase);
     % Unwrap phase n dimensionally
-    for ii=1:numParams
-        phase = unwrap(phase,[],ii);
+    n = numel(phase);
+    for ii=1:n
+        phase(ii) = mod(phase(ii), 2*pi);
+        
     end
     newphase = phase;
     % Make the minimum value 0 - renormalize - mod by 2pi
     % We're going to have to mod the phase values and the slopes
     % by 2*pi anyway, might as well just calculate it now. 
-    n = numel(newphase);
-    for ii=1:n
-        newphase(ii) = mod(newphase(ii), 2*pi);
+    for ii=1:numParams
+        newphase = unwrap(newphase,[],ii);
+    end
+    for ii=1:dims(end)
+        newphase(:,:,ii) = newphase(:,:,ii)-min(newphase(:,:,ii),[],"all");
     end
 end

@@ -1,6 +1,41 @@
 function visPhase(data)
 %VISPHASE Summary of this function goes here
 %   Detailed explanation goes here
+    
+    phases = data.phase;
+    R = data.R;
+    x = data.params{1};
+    x = transpose(x);
+    y = data.params{2};
+    xUse = repmat(x,numel(y),1);
+    yUse = repmat(y,1,numel(x));
+    xUse = transpose(xUse);
+    yUse = transpose(yUse);
+
+    for i=1:3
+        figure
+        h = pcolor(xUse,yUse,phases(:,:,i));
+        %shading interp
+        set(h,'EdgeColor','none','linestyle','none');
+        colorbar
+        xlabel('X')
+        ylabel('Y')
+        colormap(jet(256));
+        str = ['Phase at ', num2str(1445+65*i), ' nm'];
+        title(str);
+    
+        figure
+        h = pcolor(xUse,yUse,R(:,:,i));
+        set(h,'EdgeColor','none','linestyle','none');
+        colorbar
+        xlabel('X')
+        ylabel('Y')
+        colormap(jet(256));
+        str = ['R at ', num2str(1445+65*i), ' nm'];
+        title(str);
+    end
+
+    %{
     myphase = mean(data.phase(:,2,:),2);
     myR = mean(data.R(:,2,:),2);
     figure
@@ -32,5 +67,6 @@ function visPhase(data)
     yline(.765)
     yline(.3489)
     legend('Phase/(2pi)', 'R')
+    %}
 end
 

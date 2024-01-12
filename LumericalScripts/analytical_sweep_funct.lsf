@@ -27,8 +27,8 @@ function analyticalsweep(xLength, yLength){
     params = {xLength, yLength};
     data = struct;
     data.params = params;
-    #data.xLength = xLength;
-    #data.yLength = yLength;
+    data.xLength = xLength;
+    data.yLength = yLength;
     data.wavelengths = wavelengths;
     data.R = R;
     data.phase = phase;

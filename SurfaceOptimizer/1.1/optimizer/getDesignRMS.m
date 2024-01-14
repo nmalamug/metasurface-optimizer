@@ -4,13 +4,14 @@
 %%%%%%%%%%%%%%%%%
 function designRMS = getDesignRMS(cells,slopes)
     slopeSize = size(slopes);
-    errorMatrix = zeros(numel(cells),slopeSize(1));
-    for i = 1:numel(cells)
+    num = size(cells);
+    errorMatrix = zeros(num(1),slopeSize(1));
+    for i = 1:num(1)
         for j=1:slopeSize(1)
             expectedPhase(j) = mod(slopes{j}(1)*(i-1) + slopes{j}(2), 2*pi);
-            errorThisCell(j) = getPhaseDistance(expectedPhase(j),cells(i).phase(j));
+            errorThisCell(j) = getPhaseDistance(expectedPhase(j),cells(i,j));
         end
-        errorMatrix = [errorMatrix;errorThisCell];
+        errorMatrix(i,:) = errorThisCell;
     end
     designRMS = rms(errorMatrix);
 end

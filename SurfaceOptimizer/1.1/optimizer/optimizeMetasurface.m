@@ -15,6 +15,10 @@ function bestDesign = optimizeMetasurface(unitCellTable,params)
     
     %Each cell entry contains {slope, intercept}
     slopes = cell(numlambda(1),1);
+
+    %Create a phase table to make references faster
+    phaseTable = getPhaseTable(unitCellTable);
+
     for i=1:numlambda(1)
         slopes{i}(1) = (2*pi*params.P/params.lambdas(i))*(params.nspp - sin(deg2rad(params.theta)));
         slopes{i}(2) = 0;
@@ -23,18 +27,18 @@ function bestDesign = optimizeMetasurface(unitCellTable,params)
     for i = 1:numel(unitCellTable)
         for j = 1:numlambda(1)
             %Update intercepts for each value of lambda
-            slopes{j}(2) = unitCellTable(i).phase(j);
+            slopes{j}(2) = phaseTable(i,j);
         end
-        currDesign.cells(1) = unitCellTable(i);
+        currDesign.cells(1,:) = phaseTable(i,:);
         % Set second of slopes
         for j=1:numlambda(1)
-            slopes{j}(2) = unitCellTable(i).phase(j);
+            slopes{j}(2) = phaseTable(i,j);
         end
 
         for j = 2:params.N
             %Start with j-1 for slopes because slope equation indexes from
             %0.
-            currDesign.cells(j) = grabNextBest(unitCellTable, j-1, slopes);
+            currDesign.cells(j,:) = grabNextBest(phaseTable, j-1, slopes);
         end
         currDesign.RMS = getDesignRMS(currDesign.cells, slopes);
         currDesign.totalRMS = prod(currDesign.RMS);

@@ -1,5 +1,5 @@
 function constructivesweep(xLength,yLength){
-    wx = 50;
+    wx = 150;
     wy = 50;
     
     xL_num = length(xLength);

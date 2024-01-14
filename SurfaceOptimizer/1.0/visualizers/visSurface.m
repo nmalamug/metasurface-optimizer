@@ -1,4 +1,4 @@
-function visualize(surface)
+function visSurface(surface)
 %VISUALIZE Summary of this function goes here
 %   Detailed explanation goes here
     %Generate the matrix of targets based on slope

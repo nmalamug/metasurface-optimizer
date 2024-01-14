@@ -6,7 +6,8 @@ dirToAdd = strcat(dirCurr, '/preprocessor');
 addpath(dirToAdd,'-end');
 dirToAdd = strcat(dirCurr, '/optimizer');
 addpath(dirToAdd,'-end');
-
+dirToAdd = strcat(dirCurr, '/visualizers');
+addpath(dirToAdd,'-end');
 %Start preprocessing the data.
 unitCellDesigns = preprocess(data);
 
@@ -16,16 +17,16 @@ unitCellTable = unitCellDesigns{2};
 
 %Put together design parameters and build a surface. 
 designParams.lambdas = preprocessedData.wavelengths;
-designParams.N =    30;
+designParams.N =    26;
 designParams.minR = .6;
 designParams.nspp = 1.05;
 designParams.theta = 0;
 designParams.P = 600e-9;
-normalizedPhase = optimizeMetasurface(unitCellTable, designParams);
-%{
+surface = optimizeMetasurface(unitCellTable, designParams);
+
 for i=27:30
     designParams.N = i;
-    surface0deg = [surface0deg,optimizeMetasurface(unitCellTable, designParams)];
+    surface = [surface,optimizeMetasurface(unitCellTable, designParams)];
 end
-%}
-%save sumNextBest.mat sumNextBest
+
+save surface0degW150.mat surface

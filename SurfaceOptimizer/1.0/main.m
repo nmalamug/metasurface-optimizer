@@ -22,11 +22,13 @@ designParams.minR = .6;
 designParams.nspp = 1.05;
 designParams.theta = 0;
 designParams.P = 600e-9;
+tic
 surface = optimizeMetasurface(unitCellTable, designParams);
 
 for i=27:30
     designParams.N = i;
     surface = [surface,optimizeMetasurface(unitCellTable, designParams)];
 end
-
-save surface0degW150.mat surface
+toc
+%246 seconds
+save surface0degW50_1_0.mat surface

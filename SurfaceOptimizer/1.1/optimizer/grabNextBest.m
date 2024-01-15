@@ -2,7 +2,7 @@
 % Code to get the next cell design
 % Use RMS along all lambda to determine lowest loss cell.
 %%%%%%%%%%%%%%%%%
-function cell = grabNextBest(phaseTable, n, slopes)
+function [cell,ref] = grabNextBest(phaseTable, n, slopes)
     minRMS = Inf;
     slopeSize = size(slopes);
     % Get the desired phases at cell number n.
@@ -19,6 +19,7 @@ function cell = grabNextBest(phaseTable, n, slopes)
         if(currRMS < minRMS)
             minRMS = currRMS;
             cell = phaseTable(i,:);
+            ref = i;
         end
     end
 end

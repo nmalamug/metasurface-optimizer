@@ -71,6 +71,6 @@ function visSurface(surface)
     xlabel('Unit Cell')
     ylabel('Phase')
     ylim([0,2*pi])
-
+    
 end
 

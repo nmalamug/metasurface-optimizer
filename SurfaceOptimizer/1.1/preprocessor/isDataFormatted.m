@@ -9,4 +9,12 @@ function res = isDataFormatted(data)
     if(numel(data.phase)~=numel(data.R))
         res = 0;
     end
+    %{
+    datasize = size(data);
+    for i=1:(numel(datasize)-1)
+        if (numel(data.params{i}) ~= datasize(i))
+            res = 0;
+        end
+    end
+    %}
 end

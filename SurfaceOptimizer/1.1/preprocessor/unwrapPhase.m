@@ -18,12 +18,12 @@ function newphase = unwrapPhase(phase, numParams)
     % Make the minimum value 0 - renormalize - mod by 2pi
     % We're going to have to mod the phase values and the slopes
     % by 2*pi anyway, might as well just calculate it now. 
-    
+    %{
     for ii=1:numParams
         newphase = unwrap(newphase,[],ii);
     end
     for ii=1:dims(end)
         newphase(:,:,ii) = newphase(:,:,ii)-min(newphase(:,:,ii),[],"all");
     end
-    
+    %}
 end

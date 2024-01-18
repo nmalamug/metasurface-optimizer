@@ -7,7 +7,7 @@
 % Return the minimum phase values to allow for an un-doing
 %%%%%%%%%%%%%%%%%
 function [newphase, minPhases] = unwrapPhaseNormalized(phase, numParams)
-    fprintf("Unwrapping Phase\n")
+    fprintf("Unwrapping Phase Normalized\n")
     dims = size(phase);
     % Unwrap phase n dimensionally
 

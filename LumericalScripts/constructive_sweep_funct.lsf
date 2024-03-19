@@ -1,22 +1,23 @@
 function constructivesweep(xLength,yLength){
-    wx = 150;
-    wy = 50;
     
     xL_num = length(xLength);
     yL_num = length(yLength);
+    width = 150e-9;    
     
     for (i = 1:xL_num) {
         for (j = 1:yL_num) {
-            groupscope("::model");   
-            select("metasurface");
-            set("Lx",xLength(i)*1e-9);
-            set("wx",wx*1e-9);
-            set("Ly",yLength(j)*1e-9);
-            set("wy",wy*1e-9);
-            save("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
-            addjob("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
+                groupscope("::model");   
+                select("metasurface");
+                set("Lx",xLength(i)*1e-9);
+                set("Ly",yLength(j)*1e-9);
+                set("wx", width);
+                set("wy", width);
+                save("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
+                #addjob("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
+         
+                    
         }
     }
     #system("command") - Lets you run a command from shell
-    runjobs;
+    #runjobs;
 }

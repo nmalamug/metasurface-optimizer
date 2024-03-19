@@ -31,7 +31,10 @@ function analyticalsweep(xLength, yLength){
     data.yLength = yLength;
     data.wavelengths = wavelengths;
     data.R = R;
+    data.cellType = "h40";
     data.phase = phase;
+    datah40 = struct;
+    datah40 = data;
     matlabsave("results",data);
     return data;
 }

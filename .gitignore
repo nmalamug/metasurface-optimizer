@@ -1,2 +1,4 @@
 *.asv
 *.m1v
+/LumericalScripts
+/SurfaceBuilder

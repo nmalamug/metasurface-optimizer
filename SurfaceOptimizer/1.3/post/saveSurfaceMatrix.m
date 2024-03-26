@@ -18,6 +18,12 @@ for i=1:length(surface.cells)
             cell_types(i) = 12;
         case "crossx200y50"
             cell_types(i) = 13;
+        case "crossw200"
+            cell_types(i) = 14;
+        case "crossw250"
+            cell_types(i) = 15;
+        case "crossw300"
+            cell_types(i) = 16;
         case "SquareInSquare"
             cell_types(i) = 2;
     end

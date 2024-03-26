@@ -2,10 +2,11 @@ function constructivesweep(xLength,yLength){
     
     xL_num = length(xLength);
     yL_num = length(yLength);
-    width = 150e-9;    
+    width = 300e-9;    
     
     for (i = 1:xL_num) {
         for (j = 1:yL_num) {
+            if(xLength(i)*1e-9 >= width & yLength(j)*1e-9 >= width){
                 groupscope("::model");   
                 select("metasurface");
                 set("Lx",xLength(i)*1e-9);
@@ -14,7 +15,7 @@ function constructivesweep(xLength,yLength){
                 set("wy", width);
                 save("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
                 #addjob("Lx_"+num2str(i)+"Ly_"+num2str(j)+".fsp");
-         
+            }
                     
         }
     }

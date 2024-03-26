@@ -1,80 +1,24 @@
 %TODO for 1.3
-%Create a method for distinguishing between sweeps
-%Give sweeps a property that tells what unit cell was used, SurfaceTabulate can handle 
 %Add a function for getting unit cells out of data interpolations
-%Add a function to concatentate unit cell designs 
-%Add a handler that determines whether cells should be designed in parallel
 %Improve the visualization functions and make them generalize better. 
-%Create different evaluation functions, which can be toggled with a parameter
-%Make the minR parameter do something
-%Modify surfaceTabulate to give a string for unit cell type
-%Generate and Conduct sweeps for square-in-square designs
-
-%Add the directeries holding functions to path. 
-%Having individual files for each major function makes things easier to
-%test. 
-%{
-dirCurr = pwd;
-dirToAdd = strcat(dirCurr, '/preprocessor');
-addpath(dirToAdd,'-end');
-dirToAdd = strcat(dirCurr, '/optimizer');
-addpath(dirToAdd,'-end');
-dirToAdd = strcat(dirCurr, '/visualizers');
-addpath(dirToAdd,'-end');
-%}
-%Start preprocessing the data.
-unitCellDesigns = preprocess(dataSIS);
-unitCellDesigns2 = preprocess(crossw150);
-unitCellDesigns3 = preprocess(crossw100);
-unitCellDesigns4 = preprocess(crossx200y50);
-preprocessedData = unitCellDesigns{1};
-unitCellTable = unitCellDesigns{2}; 
-unitCellTable = [unitCellTable;unitCellDesigns2{2};unitCellDesigns3{2};unitCellDesigns4{2}];
-%{
-xinterp = 332.5:5:452.5;
-yinterp = linspace(150,550,21);
-[Xq, Yq] = meshgrid(yinterp,xinterp);
-[X,Y] = meshgrid(data.params{2},data.params{1});
-for i=1:3
-    interpData.phase(:,:,i) = interp2(X, Y, data.phase(:,:,i),Xq,Yq);
-    interpData.R(:,:,i) = interp2(X, Y, data.R(:,:,i),Xq,Yq);
-    
-end
-interpData.params = cell(2,1);
-interpData.params{1} = xinterp;
-interpData.params{2} = yinterp';
-interpData.wavelengths = data.wavelengths;
-preInterp = preprocess(interpData);
-
-
-
-%Generate optimal unit cell design. 
-preprocessedData = unitCellDesigns{1};
-unitCellTable = unitCellDesigns{2};
-
-unitCellTable = [unitCellTable;preInterp{2}];
-%}
 
 %Put together design parameters and build a surface. 
 designParams.lambdas = preprocessedData.wavelengths;
-%designParams.N =    26;
 designParams.minR = .6;
 designParams.nspp = 1.05;
 designParams.theta = 30;
 designParams.P = 600e-9;
+designParams.minSurfaceLength = 25; %Each next surface will be 1 longer
+designParams.numSurfaces = 4;
 
-tic
-%surface = optimizeMetasurface(unitCellTable, designParams);
+%0 - Best first unit cell optimizer
+%1 - Sweep PD space
+designParams.optimizer = 1; 
 
-numSurfaces = 4;
-surface = cell(1, numSurfaces); % Pre-allocate for 5 elements
-minSurfaceLength = 25;
-parfor i = 1:numSurfaces
-    tempSurface = optimizeMetasurface(unitCellTable, designParams, minSurfaceLength+i-1);
-    surface{i} = tempSurface; % Assign to unique index
-end
-surface = [surface{:}];
-toc
-%45 seconds for 5 surfaces
-%28 seconds for 4 surfaces
-save gpusurf.mat surface
+%Start preprocessing the data. Make sure to put in the design params first,
+%then put in your unit cell designs
+unitCellTable = preprocessAll(designParams, dataSIS, crossw150, crossw100, crossw200, crossw250, crossw300)%, dataDS);
+
+surface = createSurfaces(unitCellTable, designParams);
+
+save simplifiedmain.mat surface

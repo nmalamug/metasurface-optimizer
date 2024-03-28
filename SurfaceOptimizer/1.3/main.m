@@ -3,6 +3,8 @@
 %Improve the visualization functions and make them generalize better. 
 
 %Put together design parameters and build a surface. 
+preprocessedData = preprocess(crossw100);
+preprocessedData = preprocessedData{1};
 designParams.lambdas = preprocessedData.wavelengths;
 designParams.minR = .6;
 designParams.nspp = 1.05;
@@ -13,12 +15,12 @@ designParams.numSurfaces = 4;
 
 %0 - Best first unit cell optimizer
 %1 - Sweep PD space
-designParams.optimizer = 1; 
+designParams.optimizer = 0; 
 
 %Start preprocessing the data. Make sure to put in the design params first,
 %then put in your unit cell designs
-unitCellTable = preprocessAll(designParams, dataSIS, crossw150, crossw100, crossw200, crossw250, crossw300)%, dataDS);
-
+%unitCellTable = preprocessAll(designParams, dataSIS, crossw150, crossw100, crossw200, crossw250, crossw300);%, dataDS);
+unitCellTable = preprocessAll(designParams, crossw150);
 surface = createSurfaces(unitCellTable, designParams);
 
-save simplifiedmain.mat surface
+save 30degCross.mat surface

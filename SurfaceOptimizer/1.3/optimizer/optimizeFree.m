@@ -32,7 +32,7 @@ function bestDesign = optimizeFree(unitCellTable,params,n)
                 [currDesign.cells(k,:), currDesign.refs(k)] = grabNextBest(phaseTable, k-1, slopes);
             end
             currDesign.RMS = getDesignRMS(currDesign.cells, slopes);
-            currDesign.totalRMS = prod(currDesign.RMS);
+            currDesign.totalRMS = sum(currDesign.RMS);
             if(currDesign.totalRMS < bestDesign.totalRMS)
                 bestDesign = currDesign;
                 bestDesign.slopes = slopes;

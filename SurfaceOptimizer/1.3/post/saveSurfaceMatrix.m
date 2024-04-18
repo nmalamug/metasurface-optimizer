@@ -1,7 +1,7 @@
-function cell_types = saveSurfaceMatrix(surface,name)
+function cell_types = saveSurfaceMatrix(surface,name)%, generated)
 %GETSURFACEMATRIX Summary of this function goes here
 %   Detailed explanation goes here
-maxparam = 0;
+maxparam = 36;
 for i=1:length(surface.cells)
     if(length(surface.cells(i).params) > maxparam)
         maxparam = length(surface.cells(i).params);
@@ -26,6 +26,13 @@ for i=1:length(surface.cells)
             cell_types(i) = 16;
         case "SquareInSquare"
             cell_types(i) = 2;
+        case "DoubleSquare"
+            cell_types(i) = 21;
+    %{  
+        case "generatedSym"
+            cell_types(i) = 3;
+            my_design(i,:) = generated(surface.cells(i).params, :);
+    %}
     end
 end
 save(name, "my_design", "cell_types");

@@ -46,6 +46,7 @@ function visUnitLibrary(varargin)
     %}
 
     figure
+    axis([-pi pi 1 2*pi]);
     hold on
     if(length(varargin) == 1)    
         plot(phase{1}, dispersion{1}, '+', 'Color', 'b')
